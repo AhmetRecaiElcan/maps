@@ -5,25 +5,38 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'introduction.dart'; // introduction.dart dosyasını içe aktarıyoruz
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  final showHome = prefs.getBool('showHome') ?? false;
+
+  runApp(MyApp(showHome: showHome));
 }
 
 class MyApp extends StatelessWidget {
+  final bool showHome;
+
+  const MyApp({super.key, required this.showHome});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: showHome ? const MyHomePage() : const OnBoardingPage(),
       title: 'Google Maps Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -36,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final Set<Polyline> _polylines = {};
 
   static const String googleMapsApiKey =
-      'apı key is here'; // Google Maps API Key
+      'AIzaSyCbfi6nRvCGl6vLBJ5ndkstVZgkgIwrOlc'; // Google Maps API Key
 
   @override
   void initState() {
