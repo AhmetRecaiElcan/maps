@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final Set<Polyline> _polylines = {};
 
   static const String googleMapsApiKey =
-      'AIzaSyCbfi6nRvCGl6vLBJ5ndkstVZgkgIwrOlc'; // Google Maps API Key
+      'api key is here'; // Google Maps API Key
 
   @override
   void initState() {
